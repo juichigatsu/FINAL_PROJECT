@@ -42,3 +42,19 @@
       ansible.builtin.service:
         name: docker
         state: started
+        enabled: yes
+
+    - name: Pull the latest Nginx image
+      community.docker.docker_image:
+        name: nginx
+        source: pull
+
+    - name: Run Nginx container
+      community.docker.docker_container:
+        name: nginx
+        image: nginx:latest
+        state: started
+        restart_policy: always
+        ports:
+          - "8080:80" #change mo nalang if occupied na ports mo T_T 
+#nasa port 80:80 kasi Apache2 ko hehe
